@@ -75,6 +75,9 @@
 10. [動的プログラミング (Dynamic Programming)](10-dynamic-programming/)
 11. [貪欲法 (Greedy Algorithms)](11-greedy/)
 
+### 低レベルプログラミング
+12. [アセンブリ言語 (Assembly Language)](12-assembly/)
+
 ## ⚡ 時間計算量早見表
 
 | データ構造 | 検索 | 挿入 | 削除 |
@@ -117,6 +120,7 @@
 
 ## 💻 コンパイルと実行
 
+### C言語
 ```bash
 # 基本的なコンパイル
 gcc filename.c -o output
@@ -126,6 +130,19 @@ gcc filename.c -o output -lm
 
 # 実行
 ./output
+```
+
+### アセンブリ言語
+```bash
+# NASM + GCC (Linux)
+nasm -f elf64 filename.asm -o filename.o
+gcc filename.o -o filename
+./filename
+
+# NASM + LD (Linux)
+nasm -f elf64 filename.asm -o filename.o
+ld filename.o -o filename
+./filename
 ```
 
 ## 🌟 成功のための5つのポイント
@@ -152,6 +169,7 @@ gcc filename.c -o output -lm
 - Thomas H. Cormen et al. "Introduction to Algorithms"
 - Robert Sedgewick "Algorithms in C"
 - Donald E. Knuth "The Art of Computer Programming"
+- Intel 64 and IA-32 Architectures Software Developer's Manual
 - 「プログラムはなぜ動くのか」（日本語書籍）
 
 ## 🎯 到達目標
@@ -179,6 +197,7 @@ cs-roadmap/
 ├── 09-sorting/             # ソート
 ├── 10-dynamic-programming/ # 動的プログラミング
 ├── 11-greedy/              # 貪欲法
+├── 12-assembly/            # アセンブリ言語
 └── examples/               # 実装例
 ```
 
