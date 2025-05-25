@@ -159,11 +159,33 @@
             border-radius: 10px;
             border-left: 4px solid #e74c3c;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .skill-card:hover {
             background: #e8f4fd;
             border-left-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card.has-detail {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f8f5 100%);
+            position: relative;
+        }
+
+        .skill-card.has-detail::after {
+            content: '🔗';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .skill-card.has-detail:hover {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, #e8f8f5 0%, #d5f5e8 100%);
         }
 
         .skill-title {
@@ -379,7 +401,8 @@
 
         <div class="roadmap">
             <div class="interactive-note">
-                <strong>📈 進捗追跡:</strong> 各セクションをクリックして学習状況を記録できます
+                <strong>📈 進捗追跡:</strong> 各セクションをクリックして学習状況を記録できます<br>
+                <strong>🔗 詳細学習:</strong> 緑色のリンクアイコン付きトピックをクリックして詳細を学習
             </div>
 
             <div class="stats-section">
@@ -477,7 +500,7 @@
                         <p>ハードウェアとソフトウェアの境界を理解</p>
                         
                         <div class="skills-grid">
-                            <div class="skill-card">
+                            <div class="skill-card has-detail" data-link="digital-logic.html">
                                 <div class="skill-title">デジタル論理</div>
                                 <div class="skill-description">論理ゲート、数値表現</div>
                             </div>
@@ -783,9 +806,23 @@
         `;
         document.head.appendChild(style);
 
+        // スキルカードの詳細ページ遷移
+        function handleSkillCardClick(event) {
+            const skillCard = event.target.closest('.skill-card');
+            if (skillCard && skillCard.dataset.link) {
+                event.stopPropagation(); // 親要素のclickイベントを停止
+                window.location.href = skillCard.dataset.link;
+            }
+        }
+
         // ページ読み込み時の初期化
         document.addEventListener('DOMContentLoaded', function() {
             loadProgress();
+            
+            // スキルカードのクリックイベント設定
+            document.querySelectorAll('.skill-card').forEach(card => {
+                card.addEventListener('click', handleSkillCardClick);
+            });
             
             // 初期アニメーション
             setTimeout(() => {
@@ -802,9 +839,12 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
